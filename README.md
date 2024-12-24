@@ -1,5 +1,4 @@
 # md-scripts
-md-scripts
 
 This project is designed to store some auxiliary scripts written with ChatGPT during MD simulation.
 (Of course, DFT calculations including, too)
