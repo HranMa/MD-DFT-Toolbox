@@ -54,7 +54,10 @@ python ice_growth_front_detection.py
 3. The second script loads the full trajectory, calculates particle density per layer for each frame, and identifies ice layers based on deviations from the mean density using the threshold from the first script.
 4. The output of the second script tracks the dynamic position of the ice front over simulation time.
 
+## Test Files
+Two example files, `npt-10.gro` and `npt-10.trr`, are provided for users to test and verify the basic functionality of the scripts. These files logically contain the necessary data to complete the intended analysis steps. However, due to GitHub's file size limitations, they have not been fully tested on real simulation data.
 
+If you encounter any issues or unexpected behavior while using these test files or the scripts, please feel free to submit an issue on GitHub or contact via email for support.
 
 ## Note on Methodology
 This script was independently developed based on literature insights and personal implementation during the early stages of the project. While it offers a novel approach to analyzing ice growth fronts, users are strongly encouraged to complement their analysis with widely validated mainstream tools such as CHILL+, which have undergone extensive benchmarking and community validation.
