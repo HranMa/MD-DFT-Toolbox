@@ -1,23 +1,53 @@
-# md-scripts
+# MD & DFT Data Processing Scripts
 
-This project is designed to store some auxiliary scripts written with ChatGPT during MD simulation.
-(Of course, DFT calculations including, too)
+This repository contains a collection of auxiliary scripts for data processing in Molecular Dynamics (MD) simulations and Density Functional Theory (DFT) calculations. These scripts were developed primarily during research under Prof. Wang Dan's guidance, with assistance from ChatGPT.
 
-Most of the scripts can be run in the WSL with Ubuntu 22.04 installed, since it's much convenient to set up than normal Windows enviroment. 
+---
 
-If you're a graduate student under the guidence of Prof. Wang Dan or you have used the scripts in this project, remember to Star it.
+## Project Structure
 
+- **MD-scripts**  
+  General-purpose scripts used in MD and DFT workflows.  
+  *Note:* Most scripts are intended to run on WSL Ubuntu 22.04 for better compatibility.
 
-If you have any further questions, please contact me through this email: mahaorancn@163.com
+- **ice-growth-front**  
+  Scripts to analyze GROMACS simulation data to determine ice growth fronts in systems where ice is centrally located, flanked by water layers.  
+  *Details:*  
+  - Residue names: ice = `fSOL`, water = `SOL`  
+  - TIP4P/ice water model used; water molecules have 4 atoms in `.gro` files.
 
-## ice-growth-front
-A series scripts to determine the ice growth front for Gromacs simulation results. 
-To be more precisely, these scripts can be used in the simulation boxes with the ice in the middle and water on the upper and lower two sides. 
-For ResNames, ice == fSOL and water == SOL.
-TIP4P/ice was used, thus in the .gro files, water molecules have 4 atoms.
+- **MSD**  
+  Scripts for analyzing ion positions and mean squared displacement in simulations.  
+  *Note:* It is generally recommended to use the built-in `gmx msd` tool from GROMACS for MSD calculations instead of these scripts.
 
-## msd
-A series scripts to determine some ions positions in the simualtion. 
+- **normal-tools**  
+  A toolkit of small utility scripts for various routine tasks.
 
-## normal-tools
-A toolkit caters to daily needs
+---
+
+## Getting Started
+
+### Environment Setup
+
+- Recommended environment: WSL Ubuntu 22.04 or similar Linux distribution  
+- Required dependencies: please check the import statements at the top of each Python script and install the corresponding packages accordingly.
+
+---
+
+## Contributing
+
+Contributions and suggestions are welcome! 
+
+Please open an issue or submit a pull request if you have improvements or bug fixes.
+
+---
+
+## Acknowledgements
+
+Scripts were developed under Prof. Wang Dan’s supervision, with support from ChatGPT.
+
+---
+
+## Contact
+
+For any questions or feedback, please contact: mahaorancn@163.com 
