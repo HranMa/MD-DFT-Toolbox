@@ -1,7 +1,7 @@
 import numpy as np
 
 '''
-This script is designed to work with rate-ice-growth.py.
+This script is designed to work with ice_growth_front_detection.py.
 It analyzes the ice growth front by computing the particle distribution along the z-axis in layers.
 '''
 
