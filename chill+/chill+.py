@@ -1,23 +1,38 @@
 #!/usr/bin/env python
 # coding: utf-8
 '''
-README
-STEP 1: Create a new index.ndx file that includes all oxygen atoms from both WATER (SOL) and ICE (fSOL).
-STEP 2: Generate a trajectory file that contains only the oxygen atoms. Use the new index file by specifying *-n index.ndx*. 
-        Let's name the output file O-only.xtc. (traj.xtc and topol.tpr are examples, follow your setting)
-        command: gmx trjconv -f traj.xtc -s topol.tpr -n index.ndx -o O-only.xtc
-STEP 3: Analyze the O-only.xtc file by running the following command:
+CHILL+ Ice Structure Analysis Script
+
+This script identifies and quantifies ice structures from a molecular dynamics trajectory
+using the Chill+ algorithm implemented in OVITO.
+
+Usage Overview:
+
+STEP 1: Create an index file including all oxygen atoms from both WATER (SOL) and ICE (fSOL).
+    Example:
+    1. Run:
+        gmx make_ndx -f NPT.tpr -o index.ndx
+    2. In the interactive prompt, create groups for oxygen atoms:
+        - r SOL & a OW      (group name e.g. "SOL_OW")
+        - r fSOL & a fOW    (group name e.g. "fSOL_OW")
+    3. Merge these two groups (e.g., "10 | 11")
+    4. Rename the merged group (e.g., "fSOL_SOL_O")
+    5. Save and quit (type "q").
+
+STEP 2: Extract a trajectory containing only oxygen atoms with the new index file.
+    Example command:
+        gmx trjconv -f traj.xtc -s topol.tpr -n index.ndx -o O-only.xtc
+
+STEP 3: Run this script on the oxygen-only trajectory:
         python3 chill+_initial.py O-only.xtc
 
-Details for Step 1:
-1. Run the command: gmx make_ndx -f NPT.tpr -o index.ndx
-2. Use the following commands in the interactive prompt to create two groups:
-     - r SOL & a OW       → creates a group named "SOL_OW"
-     - r fSOL & a fOW      → creates a group named "fSOL_OW"
-   (These might be assigned to group numbers 10 and 11, for example.)
-3. Merge the two groups by entering: 10 | 11
-4. Rename the new group (e.g., group 12) to something meaningful like "fSOL_SOL_O".
-5. Type "q" to save and quit.
+Output:
+- The script writes 'ice_count.txt', containing frame-by-frame ice particle counts of the largest ice cluster.
+- Console output provides progress with frame number, timestep, and ice count.
+
+Dependencies:
+- OVITO Python API
+- GROMACS tools (for indexing and trajectory extraction)
 
 '''
 
@@ -68,4 +83,3 @@ with open(output_filename, 'w') as file_out:
         num_particles = data.particles.count
         print(f'Frame {nframe}: Timestep = {timestep}, Ice_Count = {num_particles}')
         file_out.write(f'{nframe}\t{timestep:.1f}\t{num_particles}\n')
-
