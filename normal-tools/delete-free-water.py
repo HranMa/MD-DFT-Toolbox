@@ -1,20 +1,28 @@
 import re
 
 """
-脚本工作逻辑：
-处理 Gromacs 的 gro 文件，保留冰部分，删除位于 ice_zone 或超出盒子范围的水分子。
-使用gmx solvate填充水分子的时候，可能会有一些水分子位于冰内部，这些水分子不应该被填充。
-还有会一些超出模拟盒子范围的水分子，影响不大但可以删去。
+...
+IMPORTANT:
+- Do NOT overly rely on this script for water removal.
+- Best practice is to match simulation box dimensions with ice seed sizes 
+  in two directions to ensure proper periodicity.
 
-ice_zone = 由genice生成的冰盒子
-参数:
-- input_file: 输入的 gro 文件路径/名称
-- output_file: 输出的 gro 文件路径/名称
-- box_dimensions: 手动设定的盒子大小 [x, y, z] (单位：nm)
-- z_buffer: z 方向缓冲区大小，用于调整 ice_zone 范围
+Script functionality:
+Process a Gromacs .gro file by retaining the ice region and removing water molecules 
+located inside the ice_zone or outside the simulation box.
+When using gmx solvate to add water molecules, some waters may appear inside the ice region,
+which should be removed. Also, some waters outside the box can be removed to tidy the system.
 
-注意，当前脚本删除后水分子后，可能会导致原子编号不连续，但不影响后续模拟
-建议额外执行一次EM能量最小化，并且使用输出文件进行后续模拟
+Parameters:
+- input_file: input .gro file path/name
+- output_file: output .gro file path/name
+- box_dimensions: manually set box size [x, y, z] (units: nm)
+- z_buffer: buffer size in z direction to adjust ice_zone boundaries
+
+Note:
+After deleting waters, atom numbering might become non-continuous, but this won't affect 
+subsequent simulations. It is recommended to run an energy minimization (EM) step after 
+and use the output file for further simulations.
 """
 
 def process_gro_file(input_file, output_file, box_dimensions, z_buffer=0.0):
@@ -58,8 +66,10 @@ def process_gro_file(input_file, output_file, box_dimensions, z_buffer=0.0):
         if i % 4 == 0:  # Start of a new water molecule
             molecule_start = i
         
-        # Check if the atom is in ice_zone or out of box_dimensions
+        # Extract coordinates
         x, y, z = map(float, (line[20:28].strip(), line[28:36].strip(), line[36:44].strip()))
+        
+        # Check if atom is in ice_zone or out of box dimensions
         in_ice_zone = (
             ice_zone["x_min"] <= x <= ice_zone["x_max"] and
             ice_zone["y_min"] <= y <= ice_zone["y_max"] and
@@ -71,48 +81,46 @@ def process_gro_file(input_file, output_file, box_dimensions, z_buffer=0.0):
             z < 0.0 or z > box_dimensions[2]
         )
 
-        # If any atom of the molecule is in ice_zone or out of box, skip the whole molecule
+        # If any atom of the molecule is inside ice_zone or outside box, skip whole molecule
         if in_ice_zone or out_of_box:
-            if i % 4 == 3:  # At the end of a molecule
+            if i % 4 == 3:  # End of molecule
                 deleted_molecule_count += 1
             continue
 
         # If molecule is valid, keep all its atoms
-        if i % 4 == 3:  # End of a water molecule
+        if i % 4 == 3:  # End of water molecule
             filtered_sol_atoms.extend(sol_atoms[molecule_start:molecule_start + 4])
     
-    # Renumber the atoms
+    # Renumber atoms
     combined_atoms = fsol_atoms + filtered_sol_atoms
     renumbered_atoms = []
     for atom_index, line in enumerate(combined_atoms, start=1):
         new_line = line[:15] + f"{atom_index:>5}" + line[20:]
         renumbered_atoms.append(new_line)
 
-    # Update the total number of atoms
+    # Update total number of atoms
     total_atoms = len(renumbered_atoms)
     header[1] = f"{total_atoms}\n"
 
-    # Write the output
+    # Write output file
     with open(output_file, 'w') as file:
         file.writelines(header)
         file.writelines(renumbered_atoms)
         file.write(box_line)
     
-    # Print completion message
-    print(f"处理完成！总共删除了 {deleted_molecule_count} 个水分子。输出文件为：{output_file}")
+    print(f"Processing complete! Removed {deleted_molecule_count} water molecules. Output file: {output_file}")
 
 
-# ============= 配置区域 =============
-# 输入和输出文件路径——建议把脚本和input放在一个路径下使用
-input_gro = "ice-water.gro"         # 输入文件
-output_gro = "ice-water-output.gro"  # 输出文件
+# ============= Configuration =============
+# Input/output file paths - suggest placing script and input in same folder
+input_gro = "ice-water.gro"          # Input file
+output_gro = "ice-water-output.gro"  # Output file
 
-# 手动设定盒子大小 (单位: nm)
-box_dimensions = [4.0, 4.0, 10.0]  # gro文件最后的x, y, z 尺寸
+# Manually set box dimensions (units: nm)
+box_dimensions = [4.0, 4.0, 10.0]  # x, y, z dimensions in gro file
 
-# z 方向缓冲区大小 (单位: nm)
-z_buffer = 0.1  # 根据需要调整，默认0.1即可
+# z direction buffer size (units: nm)
+z_buffer = 0.1  # adjust as needed, default 0.1
 
-# 调用主函数
+# Run main function
 process_gro_file(input_gro, output_gro, box_dimensions, z_buffer)
-
