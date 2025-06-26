@@ -61,3 +61,11 @@ If you encounter any issues or unexpected behavior while using these test files 
 
 ## Note on Methodology
 This script was independently developed based on literature insights and personal implementation during the early stages of the project. While it offers a novel approach to analyzing ice growth fronts, users are strongly encouraged to complement their analysis with widely validated mainstream tools such as CHILL+, which have undergone extensive benchmarking and community validation.
+
+
+## 📖 Citation
+
+If you use this script in your own research, please consider citing the following work where this method was originally developed and applied:
+
+Zhu, Z. *et al.* *Antifreeze protein mimics realizing stable low‐temperature‐resistant aqueous Zn‐ion batteries with high water content*. *Angew. Chem. Int. Ed.* **e202505325** (2025). [https://doi.org/10.1002/anie.202505325](https://doi.org/10.1002/anie.202505325)
+
