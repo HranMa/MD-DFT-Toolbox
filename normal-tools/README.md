@@ -9,7 +9,7 @@ This folder contains a set of lightweight Python scripts for structural or file-
 Removes water molecules inside the ice seed zone or outside the simulation box in a `.gro` file.
 
 - Recommended to match the box dimensions with the seed in at least two directions for periodicity.
-- Do not overly rely on this script; prefer generating a clean initial structure.
+- Do NOT overly rely on this script; prefer generating a clean initial structure.
 
 ### 🔁 hex-cubic-trans.py
 
@@ -36,4 +36,4 @@ These are kept for archival purposes. Not actively used or maintained.
 
 - Scripts are minimal and purpose-specific.
 - No external dependencies beyond Python standard library and NumPy (for `partial-stat`).
-- Always validate output manually if using any legacy tools.
+- Always validate output manually if using any legacy tools. 
