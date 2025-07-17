@@ -60,7 +60,7 @@ Two example files, `npt-10.gro` and `npt-10.trr`, are provided for users to test
 If you encounter any issues or unexpected behavior while using these test files or the scripts, please feel free to submit an issue on GitHub or contact via email for support.
 
 ## Note on Methodology
-This script was independently developed based on literature insights and personal implementation during the early stages of the project. While it offers a novel approach to analyzing ice growth fronts, users are strongly encouraged to complement their analysis with widely validated mainstream tools such as CHILL+, which have undergone extensive benchmarking and community validation.
+This script was independently developed early in the project, inspired by literature and personal implementation. While it provides a novel method for analyzing ice growth fronts, users are strongly encouraged to also use established, widely validated tools like CHILL+, which benefit from extensive benchmarking and community validation.
 
 
 ## 📖 Citation
