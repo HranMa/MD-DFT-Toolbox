@@ -52,4 +52,5 @@ Scripts were developed under Prof. Wang Dan’s supervision, with support from C
 ## Contact
 
 For any questions or feedback, please contact: mahaorancn@163.com 
-**Note**:I prefer communicating in Chinese, but English is totally fine.
+
+***Note**: I prefer communicating in Chinese, but English is totally fine.*
