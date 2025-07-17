@@ -2,6 +2,8 @@
 
 This repository contains a collection of auxiliary scripts for data processing in Molecular Dynamics (MD) simulations and Density Functional Theory (DFT) calculations. These scripts were developed primarily during research under Prof. Wang Dan's guidance, with assistance from ChatGPT.
 
+If you find these scripts useful in your research, please kindly cite the corresponding references under each section and star this repository to support the project.
+
 ---
 
 ## Project Structure
