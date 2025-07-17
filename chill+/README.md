@@ -100,10 +100,6 @@ A sample file `O-only.xtc` is included in this folder to help users verify that 
 
 If you use this code or workflow in your work, please cite both the CHILL+ algorithm and OVITO:
 
-## 📖 Citations
-
-If you use this code or workflow in your work, please cite both the CHILL+ algorithm and OVITO:
-
 - Nguyen, A. H. & Molinero, V. *Identification of clathrate hydrates, hexagonal ice, cubic ice, and liquid water in simulations: The CHILL+ algorithm.*  
   *Journal of Physical Chemistry B*, **119**, 9369–9376 (2015).  
   [https://doi.org/10.1021/acs.jpcb.5b04252](https://pubs.acs.org/doi/10.1021/jp510289t)
