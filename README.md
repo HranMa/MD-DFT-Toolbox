@@ -6,19 +6,18 @@ This repository contains a collection of auxiliary scripts for data processing i
 
 ## Project Structure
 
-- **MD-scripts**  
-  General-purpose scripts used in MD and DFT workflows.  
-  *Note:* Most scripts are intended to run on WSL Ubuntu 22.04 for better compatibility.
+- **MSD**  
+  Scripts for analyzing ion positions and mean squared displacement in simulations.  
+  *Note:* It is generally recommended to use the built-in `gmx msd` tool from GROMACS for MSD calculations instead of these scripts.
+
+- **chill+**  
+  This script performs structural classification of water molecules in molecular dynamics trajectories using the CHILL+ algorithm, implemented via the OVITO Python API  
 
 - **ice-growth-front**  
   Scripts to analyze GROMACS simulation data to determine ice growth fronts in systems where ice is centrally located, flanked by water layers.  
   *Details:*  
   - Residue names: ice = `fSOL`, water = `SOL`  
   - TIP4P/ice water model used; water molecules have 4 atoms in `.gro` files.
-
-- **MSD**  
-  Scripts for analyzing ion positions and mean squared displacement in simulations.  
-  *Note:* It is generally recommended to use the built-in `gmx msd` tool from GROMACS for MSD calculations instead of these scripts.
 
 - **normal-tools**  
   A toolkit of small utility scripts for various routine tasks.
